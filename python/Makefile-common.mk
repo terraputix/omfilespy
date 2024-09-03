@@ -16,7 +16,7 @@ $(pip): $(if $(value CI),|,) .python-version
 	$(venv)/bin/python --version
 	$(pip) install --upgrade pip~=24.0
 
-$(venv): $(if $(value CI),|,) pyproject.toml $(pip) libOmFileInterface.a bindings.cpp
+$(venv): $(if $(value CI),|,) pyproject.toml $(pip) bindings.cpp
 	$(pip) install -e '.[dev]'
 	touch $(venv)
 
