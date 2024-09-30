@@ -21,6 +21,7 @@ build-backend = "scikit_build_core.build"
 
 [tool.scikit-build]
 build.verbose = true
+logging.level = "DEBUG"
 wheel.expand-macos-universal-tags = true
 
 [tool.pyright]
