@@ -4,11 +4,11 @@
 
 Use a static swift artifact via python!
 
-Some useful links: 
-- https://github.com/gmcheese/wrap-swift-python/tree/main
-- https://pybind11.readthedocs.io/en/stable/
-- https://theswiftdev.com/building-static-and-dynamic-swift-libraries-using-the-swift-compiler/
+Some useful links:
 
+- <https://github.com/gmcheese/wrap-swift-python/tree/main>
+- <https://pybind11.readthedocs.io/en/stable/>
+- <https://theswiftdev.com/building-static-and-dynamic-swift-libraries-using-the-swift-compiler/>
 
 ## How to develop on this?
 

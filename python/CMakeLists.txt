@@ -1,14 +1,9 @@
 cmake_minimum_required(VERSION 3.15...3.29)
 
-#########
-# SWIFT #
-#########
-# Add a custom target to build the Swift project, this will always be built!
-add_custom_target(BuildSwiftOmFiles ALL
-    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR}/../Swift swift build
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/../Swift
-    COMMENT "Building Swift static library"
-)
+# There are some incompatibilities with Swift and gcc
+# Therefore we have to specify explicitly to use clang
+set(CMAKE_C_COMPILER "clang")
+set(CMAKE_CXX_COMPILER "clang")
 
 ##########
 # Python #
@@ -22,7 +17,24 @@ project(
 set(PYBIND11_FINDPYTHON ON)
 find_package(pybind11 CONFIG REQUIRED)
 
-add_library(OmFilesLib STATIC IMPORTED GLOBAL) # Not sure if GLOBAL is necessary
+#########
+# SWIFT #
+#########
+# Add a custom target to build the Swift project, this will always be built!
+add_custom_command(
+    OUTPUT ${CMAKE_SOURCE_DIR}/../Swift/.build/debug/libOmFileInterface.a
+    COMMAND swift build
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/../Swift
+    COMMENT "Building Swift static library"
+    VERBATIM
+)
+
+# Create a custom target that depends on the output of the custom command
+add_custom_target(BuildSwiftOmFiles ALL
+    DEPENDS ${CMAKE_SOURCE_DIR}/../Swift/.build/debug/libOmFileInterface.a
+)
+
+add_library(OmFilesLib STATIC IMPORTED)
 add_dependencies(OmFilesLib BuildSwiftOmFiles)
 # IMPORTED_LOCATION needs to be an absolute path
 set_target_properties(OmFilesLib PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../Swift/.build/debug/libOmFileInterface.a)

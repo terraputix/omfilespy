@@ -20,6 +20,7 @@ requires = ["pybind11~=2.13.1", "scikit-build-core>=0.3.3"]
 build-backend = "scikit_build_core.build"
 
 [tool.scikit-build]
+build.verbose = true
 wheel.expand-macos-universal-tags = true
 
 [tool.pyright]
