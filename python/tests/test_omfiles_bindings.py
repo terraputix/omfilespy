@@ -1,5 +1,6 @@
-import omfilespy as om
 import numpy.testing as npt
+
+import omfilespy as om
 
 
 def test_om_hello_from_swift():
